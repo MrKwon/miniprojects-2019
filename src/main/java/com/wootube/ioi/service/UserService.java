@@ -53,9 +53,10 @@ public class UserService {
                 .orElseThrow(NotFoundUserException::new);
     }
 
+    @Transactional
     public User deleteUser(Long userId) {
         User deleteTargetUser = findById(userId);
-        userRepository.delete(deleteTargetUser);
+        deleteTargetUser.softDelete();
         return deleteTargetUser;
     }
 }
