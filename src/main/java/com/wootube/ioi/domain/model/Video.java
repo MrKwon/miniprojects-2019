@@ -1,12 +1,11 @@
 package com.wootube.ioi.domain.model;
 
-import javax.persistence.*;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.LazyCollection;
+
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -46,11 +45,17 @@ public class Video extends BaseEntity {
         this.description = updateVideo.description;
     }
 
-    public void setContentPath(String contentPath) {
+    public void updateContentPath(String contentPath) {
         this.contentPath = contentPath;
     }
 
-    public void setOriginFileName(String originFileName) {
+    public void initialize(String contentPath, String originFileName, User writer) {
+        this.contentPath = contentPath;
         this.originFileName = originFileName;
+        this.writer = writer;
+    }
+
+    public boolean matchWriter(Long userId) {
+        return writer.isSameUserAndWriter(userId);
     }
 }

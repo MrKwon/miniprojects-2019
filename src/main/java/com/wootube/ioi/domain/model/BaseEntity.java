@@ -18,7 +18,7 @@ public abstract class BaseEntity {
     private Long id;
 
     @Column(name = "is_active")
-    private Boolean isActive = true;
+    protected Boolean isActive = true;
 
     @Column(updatable = false)
     @CreationTimestamp
@@ -33,5 +33,9 @@ public abstract class BaseEntity {
         }
 
         this.isActive = false;
+    }
+
+    public boolean isSameUserAndWriter(Long userId) {
+        return id.equals(userId);
     }
 }
